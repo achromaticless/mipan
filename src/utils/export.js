@@ -1,9 +1,33 @@
 import { toPng } from 'html-to-image';
 
+async function waitForImages(el) {
+  const images = el.querySelectorAll('img');
+  return Promise.all(
+    Array.from(images).map(img => {
+      if (img.complete) return Promise.resolve();
+      return new Promise((resolve) => {
+        img.onload = resolve;
+        img.onerror = resolve;
+      });
+    })
+  );
+}
+
 async function captureSticker(pixelRatio = 4) {
   const el = document.querySelector('.sticker-card');
   if (!el) throw new Error('Sticker card element not found');
-  return toPng(el, { pixelRatio, cacheBust: true });
+
+  // Wait for all images to load before capturing
+  await waitForImages(el);
+
+  // Small delay for iOS to ensure rendering is complete
+  await new Promise(resolve => setTimeout(resolve, 100));
+
+  return toPng(el, {
+    pixelRatio,
+    cacheBust: true,
+    allowTaint: true,
+  });
 }
 
 export async function exportPNG() {
