@@ -1,0 +1,40 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --highlight: #304FFF;
+  --highlight-dim: rgba(48, 79, 255, 0.12);
+
+  --bg: #000000;
+  --surface: #0d0d0d;
+  --border: rgba(255, 255, 255, 0.08);
+  --text: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.4);
+
+  --teal: var(--highlight);
+  --orange: var(--highlight);
+  --navy: #0a1245;
+  --white: #ffffff;
+
+  --font-display: 'Bebas Neue', 'Saira', sans-serif;
+  --font-body: 'Saira', system-ui, sans-serif;
+}
+
+html { font-size: 16px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 600;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100svh;
+}
+
+#root {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+button { cursor: pointer; font-family: var(--font-display); }
+input, select, textarea { font-family: var(--font-body); font-weight: 600; }
